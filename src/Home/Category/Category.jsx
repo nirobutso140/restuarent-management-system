@@ -15,7 +15,7 @@ import Section_title from '../../components/Section_title';
 const Category = () => {
     return (
         <>
-            <Section_title subheading={"From 10am to 11pm"} heading={"ORDER ONLINE"} />
+            <Section_title subheading={"--- From 10am to 11pm ---"} heading={"ORDER ONLINE"} />
             <Swiper
                 effect={'coverflow'}
                 grabCursor={true}
