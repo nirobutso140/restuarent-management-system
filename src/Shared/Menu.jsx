@@ -4,7 +4,7 @@ const Menu = ({items}) => {
     const {name, recipe, image, price} = items
     return (
         <>
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <div className='flex space-x-4 items-start'>
                 <img className='w-24 h-24 rounded-full' src={image} alt="" />
                 <div className="menu_article">
                     <h3 className='uppercase text-lg'>{name} -------------</h3>
