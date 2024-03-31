@@ -39,14 +39,14 @@ const Review = () => {
         {
           review.map(reviewData => <>
             <SwiperSlide key={reviewData._id}>
-              <div className='mx-14 text-center'>
+              <div className='mx-14 text-center flex flex-col items-center'>
                 <Rating
-                  style={{ maxWidth: 180 }}
+                  style={{ maxWidth: 120 }}
                   value={reviewData.rating}
                   // onChange={setRating}
                 />
-                <p style={{color: 'gray'}}>{reviewData.details}</p>
-                <p className='text-amber-500'>{reviewData.name}</p>
+                <p className='my-5' style={{color: 'gray'}}>{reviewData.details}</p>
+                <p className='text-amber-500 text-lg uppercase'>{reviewData.name}</p>
               </div>
             </SwiperSlide>
           </>)
