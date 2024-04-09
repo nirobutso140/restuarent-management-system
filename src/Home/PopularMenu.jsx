@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Section_title from '../components/Section_title';
-import Menu from '../Shared/Menu';
+import Menu from '../components/Menu';
 import useMenu from '../Hooks/useMenu';
 
 const PopularMenu = () => {
@@ -11,7 +11,7 @@ const PopularMenu = () => {
     return (
         <>
             <Section_title subheading={"--- Propular Menu ---"} heading={"From Our Menu"}/>
-           <div className='grid gap-4 md:grid-cols-2'>
+           <div className='grid gap-4 md:grid-cols-2 my-20'>
                {
                  popular.map(item => <Menu items={item} key={item._id}/>)
                }
