@@ -1,8 +1,10 @@
 .react-tabs{
     text-align: center;
+    margin-top: 50px;
 }
 .react-tabs__tab-list{
     text-transform: uppercase;
+    margin-bottom: 50px;
 }
 .react-tabs__tab{
     font-weight: bold;
