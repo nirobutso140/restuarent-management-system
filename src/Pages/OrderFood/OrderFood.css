@@ -1,0 +1,12 @@
+.react-tabs{
+    text-align: center;
+}
+.react-tabs__tab-list{
+    text-transform: uppercase;
+}
+.react-tabs__tab{
+    font-weight: bold;
+}
+.react-tabs__tab:selected{
+    color: gold;
+}

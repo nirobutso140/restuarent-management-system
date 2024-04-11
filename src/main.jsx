@@ -8,8 +8,9 @@ import {
 import Layout from './Layout/Layout.jsx';
 import Home from './Home/Home.jsx';
 import MyMenu from './Pages/MyMenu.jsx';
-import Shop from './Pages/Shop.jsx';
+
 import Contact from './Pages/Contact.jsx';
+import OrderFood from './Pages/OrderFood/OrderFood.jsx';
 
 
 const router = createBrowserRouter([
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/shop",
-        element: <Shop/>
+        element: <OrderFood/>
       },
       {
         path: "/contact",
