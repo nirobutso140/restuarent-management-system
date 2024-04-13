@@ -30,9 +30,12 @@ const OrderFood = () => {
                     <Tab>drinks</Tab>
                     <Tab>dessert</Tab>
                 </TabList>
+
+                {/* select 1st tab and display "salad" data to pass "salad" data */}
                 <TabPanel>
                     <OrderLoop items={salad} />
                 </TabPanel>
+                 {/* select 2nd tab and display "drink" data to pass "salad data" */}
                 <TabPanel>
                     <OrderLoop items={drink} />
                 </TabPanel>
