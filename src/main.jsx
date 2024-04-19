@@ -11,6 +11,7 @@ import MyMenu from './Pages/MyMenu.jsx';
 
 import Contact from './Pages/Contact.jsx';
 import OrderFood from './Pages/OrderFood/OrderFood.jsx';
+import Login from './Pages/Login/Login.jsx';
 
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
         path: "/contact",
         element: <Contact/>
       },
+      {
+        path: "/login",
+        element: <Login/>
+      }
     ],
   },
 ]);

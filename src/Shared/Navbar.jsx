@@ -7,6 +7,7 @@ const Navbar = () => {
         <li><Link to='/menu'>MENU</Link></li>
         <li><Link to='/shop'>OUR SHOP</Link></li>
         <li><Link to='/contact'>CONTACT US</Link></li>
+        <li><Link to='/login'>LOGIN</Link></li>
     </>
     return (
         <>
