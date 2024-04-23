@@ -1,19 +1,18 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../Provider/AuthProvider';
-import { info } from 'autoprefixer';
+import React from 'react';
 
-const Login = () => {
-    const data = useContext(AuthContext)
-    const handleLogin = (e) =>{
-          e.preventDefault()
-          const form = e.target
-          const email = form.email.value
-          const pass = form.pass.value
-          console.log(email, pass);
-          
-    }
+const Register = () => {
+
+    const hadleRegister = (e) =>{
+        e.preventDefault()
+        const form = e.target
+        
+        const email = form.email.value
+        const pass = form.password.value
+        console.log( email, pass);
+    } 
+
     return (
-        <div>
+        <>
             <div className="hero min-h-screen bg-base-200">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left">
@@ -21,7 +20,7 @@ const Login = () => {
                         <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                     </div>
                     <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                        <form className="card-body" onSubmit={handleLogin}>
+                        <form className="card-body" onSubmit={hadleRegister}>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
@@ -32,7 +31,7 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" name='pass' placeholder="password" className="input input-bordered" required />
+                                <input type="password" name='password' placeholder="password" className="input input-bordered" required />
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
@@ -44,8 +43,8 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
-export default Login;
+export default Register;

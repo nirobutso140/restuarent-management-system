@@ -12,6 +12,8 @@ import MyMenu from './Pages/MyMenu.jsx';
 import Contact from './Pages/Contact.jsx';
 import OrderFood from './Pages/OrderFood/OrderFood.jsx';
 import Login from './Pages/Login/Login.jsx';
+import AuthProvider from './Provider/AuthProvider.jsx';
+import Register from './Pages/Register/Register';
 
 
 const router = createBrowserRouter([
@@ -38,7 +40,11 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login/>
-      }
+      },
+      {
+        path: "/register",
+        element: <Register/>
+      },
     ],
   },
 ]);
@@ -46,7 +52,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
      <div className='max-w-screen-xl mx-auto'>
+     <AuthProvider>
      <RouterProvider router={router} />
+     </AuthProvider>
      </div>
   </React.StrictMode>,
 )
