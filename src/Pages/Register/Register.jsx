@@ -1,14 +1,43 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
+import { Link, useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const Register = () => {
+
+const {createUser} = useContext(AuthContext)
+ const [registerError, setRegisterError] = useState('')
+ const [success, setSuccess] = useState('')
+ const navigate = useNavigate()
 
     const hadleRegister = (e) =>{
         e.preventDefault()
         const form = e.target
-        
         const email = form.email.value
-        const pass = form.password.value
-        console.log( email, pass);
+        const password = form.password.value
+
+        setRegisterError('')
+        setSuccess('')
+
+        const uppercaseRegex = /[A-Z]/;
+        const specialCharacterRegex = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/;
+        if(!uppercaseRegex.test(password) && !specialCharacterRegex.test(password)){
+          setRegisterError('Error!!! You have to give any uppercase character and special character')
+          return ;
+        }
+
+        createUser(email,password)
+        .then(result =>{
+            console.log(result.user);
+            setSuccess('Congratulation!!! Your Account Created Successfully')
+            e.target.reset()
+            swal("Congratulation", "your account created successfully", "success");
+            navigate('/')
+        })
+        .catch(error =>{
+            console.error(error)
+            setRegisterError(error.message)
+        })
     } 
 
     return (
@@ -39,6 +68,10 @@ const Register = () => {
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Login</button>
                             </div>
+                            <p>Already have an account? please <Link to='/login'><button className="btn btn-link">Login</button> </Link></p>
+                            {
+                               registerError? <p className='text-red-700'>{registerError}</p> : <p className='text-green-800'>{success}</p>
+                            }
                         </form>
                     </div>
                 </div>

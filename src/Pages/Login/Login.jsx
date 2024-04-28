@@ -1,16 +1,35 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { info } from 'autoprefixer';
+import swal from 'sweetalert';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const data = useContext(AuthContext)
-    const handleLogin = (e) =>{
-          e.preventDefault()
-          const form = e.target
-          const email = form.email.value
-          const pass = form.pass.value
-          console.log(email, pass);
-          
+    const { loginUser } = useContext(AuthContext)
+    const [loginError, setLoginError] = useState('')
+    const [loginSuccess, setLoginSuccess] = useState('')
+    const navigate = useNavigate()
+    const handleLogin = (e) => {
+        e.preventDefault()
+        const form = e.target
+        const email = form.email.value
+        const pass = form.pass.value
+        console.log(email, pass);
+        setLoginError('')
+        setLoginSuccess('')
+
+        loginUser(email, pass)
+            .then(result => {
+                console.log(result.user);
+                setLoginSuccess("You Logged In Successfully!!!")
+                e.target.reset()
+                swal("Congratulation!", "You Logged In Successfully", "success");
+                navigate('/')
+            })
+            .catch(error => {
+                setLoginError(error.message)
+            })
+
     }
     return (
         <div>
@@ -40,6 +59,11 @@ const Login = () => {
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Login</button>
                             </div>
+                            <p>Already have an account? please <Link to='/register'><button className="btn btn-link">Login</button> </Link></p>
+                            {
+
+                                loginError ? <p className="text-red-600">{loginError}</p> : <p className="text-green-600">{loginSuccess}</p>
+                            }
                         </form>
                     </div>
                 </div>

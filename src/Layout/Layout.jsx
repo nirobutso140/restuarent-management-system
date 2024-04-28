@@ -6,12 +6,13 @@ import Footer from '../Shared/Footer';
 const Layout = () => {
     const location = useLocation()
     console.log(location);
-    const isLogin = location.pathname.includes("/login")
+    const authentication = location.pathname.includes("/login") || location.pathname.includes("/register")
+     
     return (
         <>
-           {isLogin ? '' : <Navbar/>} 
+           {authentication  ? '' : <Navbar/>} 
             <Outlet/>
-            {isLogin ? '' : <Footer/> }
+            {authentication ? '' : <Footer/> }
         </>
     );
 };
