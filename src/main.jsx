@@ -14,6 +14,7 @@ import OrderFood from './Pages/OrderFood/OrderFood.jsx';
 import Login from './Pages/Login/Login.jsx';
 import AuthProvider from './Provider/AuthProvider.jsx';
 import Register from './Pages/Register/Register';
+import PrivetRoute from './PrivetRoute/PrivetRoute.jsx';
 
 
 const router = createBrowserRouter([
@@ -27,11 +28,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/menu",
-        element: <MyMenu/>
+        element: <PrivetRoute> <MyMenu/></PrivetRoute>
       },
       {
         path: "/shop",
-        element: <OrderFood/>
+        element: <PrivetRoute><OrderFood/></PrivetRoute> 
       },
       {
         path: "/contact",
