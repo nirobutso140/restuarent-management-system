@@ -1,7 +1,42 @@
 import React from 'react';
+import useAuth from '../Hooks/useAuth';
+import { Navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import useAxiosSecure from './../Hooks/useAxiosSecure';
 
 const FoodCard = ({ item }) => {
-    const { name, recipe, image, price } = item
+    const { name, recipe, image, price, _id} = item
+    const {user} = useAuth()
+    const Navigate = useNavigate()
+    const axiosSecure = useAxiosSecure();
+   
+
+    const handleFoodItem = (food) =>{
+        if(user && user.email){
+            const cartItem = {
+                menuId : _id,
+                email : user.email,
+                name,
+                price,
+                image
+            }
+            axiosSecure.post("/cart", cartItem)
+            .then(res =>{
+                console.log(res.data);  
+                if(res.data.insertedId){
+                    swal("Good job!", "You added an item");
+                }
+            })
+
+        }else{
+            swal({
+                title: "Please login",
+                text: "I will close in 2 seconds.",
+                timer: 3000
+              });
+              Navigate('/login')
+        }
+    }
     return (
         <div className="card card-compact w-96 bg-base-100 shadow-xl">
             <div className='cardImage relative'>
@@ -12,7 +47,7 @@ const FoodCard = ({ item }) => {
                 <h2 className="card-title">{name}</h2>
                 <p className='text-gray-500'>{recipe}</p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Buy Now</button>
+                    <button onClick={()=> handleFoodItem(item)} className="btn btn-primary">Buy Now</button>
                 </div>
             </div>
         </div>

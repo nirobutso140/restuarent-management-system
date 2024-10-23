@@ -1,9 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import { FaCartShopping } from "react-icons/fa6";
+import useAxiosSecure from '../Hooks/useAxiosSecure';
+const axiosSecure = useAxiosSecure()
 
 const Navbar = () => {
+    const [cart, setCart] = useState([])
+    console.log(cart)
+    useEffect(()=>{
+        axiosSecure.get("/cart")
+        .then((res)=> setCart(res.data))
+        .catch((error) => console.error(error))
+      })
     const { user, logOut } = useContext(AuthContext)
     const handleLogOut = () => {
         logOut()
@@ -22,9 +31,9 @@ const Navbar = () => {
         <li><Link to='/contact'>CONTACT US</Link></li>
         <li><Link to='/login'>LOGIN</Link></li>
         <li><Link to='/register'>REGISTER</Link></li>
-        <li><Link to="/">
+        <li><Link to="/cart">
             <FaCartShopping />
-            <div className="badge badge-secondary">+99</div>
+            <div className="badge badge-secondary">+{cart.length}</div>
         </Link></li>
     </>
     return (
