@@ -9,12 +9,26 @@ const Cart = () => {
 
     const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
+    
+
     const handleDelete = id =>{
-        swal({
-            title: "Auto close alert!",
-            text: "I will close in 2 seconds.",
-            timer: 2000
-          });
+          axiosSecure.delete(`/cart/${id}`)
+          .then(res=>{
+              if(res.data.deletedCount > 0){
+                swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover this imaginary file!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel plx!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                  })
+              }
+              
+          })
     }
 
     console.log(cart)
