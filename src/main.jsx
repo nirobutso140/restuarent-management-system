@@ -17,6 +17,7 @@ import Register from './Pages/Register/Register';
 import PrivetRoute from './PrivetRoute/PrivetRoute.jsx';
 import Dashboard from './Layout/Dashboard.jsx';
 import Cart from './Pages/Dashboard/Cart/Cart.jsx';
+import AllUser from './Pages/Dashboard/AllUser/AllUser.jsx';
 
 
 const router = createBrowserRouter([
@@ -52,11 +53,16 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Dashboard/>,
+    element: <PrivetRoute><Dashboard/></PrivetRoute> ,
     children: [
         {
           path: '/cart',
           element: <Cart/>
+        },
+
+        {
+          path: '/allUser',
+          element: <AllUser/>
         },
     ],
   },

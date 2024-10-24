@@ -2,17 +2,20 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
+
 
 const Register = () => {
+    const axiosPublic = useAxiosPublic()
+    const { createUser } = useContext(AuthContext)
+    const [registerError, setRegisterError] = useState('')
+    const [success, setSuccess] = useState('')
+    const navigate = useNavigate()
 
-const {createUser} = useContext(AuthContext)
- const [registerError, setRegisterError] = useState('')
- const [success, setSuccess] = useState('')
- const navigate = useNavigate()
-
-    const hadleRegister = (e) =>{
+    const hadleRegister = (e) => {
         e.preventDefault()
         const form = e.target
+        const name = form.name.value
         const email = form.email.value
         const password = form.password.value
 
@@ -21,24 +24,32 @@ const {createUser} = useContext(AuthContext)
 
         const uppercaseRegex = /[A-Z]/;
         const specialCharacterRegex = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/;
-        if(!uppercaseRegex.test(password) && !specialCharacterRegex.test(password)){
-          setRegisterError('Error!!! You have to give any uppercase character and special character')
-          return ;
+        if (!uppercaseRegex.test(password) && !specialCharacterRegex.test(password)) {
+            setRegisterError('Error!!! You have to give any uppercase character and special character')
+            return;
         }
 
-        createUser(email,password)
-        .then(result =>{
-            console.log(result.user);
-            setSuccess('Congratulation!!! Your Account Created Successfully')
-            e.target.reset()
-            swal("Congratulation", "your account created successfully", "success");
-            navigate('/')
-        })
-        .catch(error =>{
-            console.error(error)
-            setRegisterError(error.message)
-        })
-    } 
+        createUser(email, password)
+            .then(result => {
+                const userInfo = {
+                    name,
+                    email
+                }
+                axiosPublic.post('/user', userInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {                            
+                            setSuccess('Congratulation!!! Your Account Created Successfully')
+                            e.target.reset()
+                            swal("Congratulation", "your account created successfully", "success");
+                            navigate('/')
+                        }
+                    })
+            })
+            .catch(error => {
+                console.error(error)
+                setRegisterError(error.message)
+            })
+    }
 
     return (
         <>
@@ -50,6 +61,12 @@ const {createUser} = useContext(AuthContext)
                     </div>
                     <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <form className="card-body" onSubmit={hadleRegister}>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Name</span>
+                                </label>
+                                <input type="name" name='name' placeholder="name" className="input input-bordered" required />
+                            </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
@@ -70,7 +87,7 @@ const {createUser} = useContext(AuthContext)
                             </div>
                             <p>Already have an account? please <Link to='/login'><button className="btn btn-link">Login</button> </Link></p>
                             {
-                               registerError? <p className='text-red-700'>{registerError}</p> : <p className='text-green-800'>{success}</p>
+                                registerError ? <p className='text-red-700'>{registerError}</p> : <p className='text-green-800'>{success}</p>
                             }
                         </form>
                     </div>
